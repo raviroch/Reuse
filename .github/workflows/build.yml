@@ -19,9 +19,9 @@ on:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
+    # permissions:
+    #   contents: read
+    #   packages: write
       
     steps:
       - name: Checkout 

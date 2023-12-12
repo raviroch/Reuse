@@ -1,0 +1,37 @@
+name: Build and publish a Docker image
+
+on: push
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      TAG: python-check
+      PAT: ${{ secrets.GITHUB_TOKEN }}
+      USER: raviroch
+      REGISTRY: ghcr.io
+      VERSION: v1
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ env.TAG }} .
+          docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
+      - name: Login and push to GHCR
+        run: |
+          echo $PAT | docker login ${{ env.REGISTRY }} -u $USER --password-stdin
+          docker push ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
+      - name: Image Scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ env.REGISTRY }}/${{ env.USER }}/${{ env.TAG }}:${{ env.VERSION }}'
+          security-checks: 'vuln,secret,config'
+          format: 'sarif'
+          output: 'trivy-image-results.sarif'
+          severity: 'CRITICAL,HIGH'

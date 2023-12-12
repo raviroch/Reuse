@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build1:
-    uses: raviroch/Sample/.github/workflows/sample.yml@main
+    uses: bh-ent-tech/newflow-cd/.github/workflows/sample.yml@main
     with:
       TAG: python-check
       USER: raviroch

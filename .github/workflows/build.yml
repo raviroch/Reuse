@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build1:
-    uses: raviroch/Reuse/.github/workflows/build.yml@main
+    uses: raviroch/Sample/.github/workflows/sample.yml@main
     with:
       TAG: python-check
       USER: raviroch

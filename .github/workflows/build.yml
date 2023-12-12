@@ -23,10 +23,6 @@ jobs:
         run: |
           docker build -t ${{ env.TAG }} .
           docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
-      - name: Login and push to GHCR
-        run: |
-          echo $PAT | docker login ${{ env.REGISTRY }} -u $USER --password-stdin
-          docker push ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
       - name: Image Scan
         uses: aquasecurity/trivy-action@master
         with:

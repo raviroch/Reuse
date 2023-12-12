@@ -4,7 +4,7 @@ on: push
 
 jobs:
   build1:
-    uses: paratej-bh/newflow-cd/.github/workflows/sample.yml@main
+    uses: AshwiniRanganath2020/newflow-cd/.github/workflows/sample.yml@main
     with:
       TAG: python-check
       USER: raviroch

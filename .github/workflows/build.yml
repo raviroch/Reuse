@@ -30,7 +30,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t ${{ inputs.TAG }} .
-          docker tag $TAG ${{ inputs.REGISTRY }}/$USER/$TAG:${{ inputs.VERSION }}
+          docker tag $TAG ${{ inputs.REGISTRY }}/${{ inputs.USER }}/${{ inputs.TAG }}:${{ inputs.VERSION }}
       - name: Image Scan
         uses: aquasecurity/trivy-action@master
         with:
